@@ -199,10 +199,10 @@ const SocialButton = () => {
                 id='wechat-pop'
                 className={
                   (wechatQrCodeShow ? 'opacity-100 ' : ' invisible opacity-0') +
-                  ' z-40 absolute bottom-10 -left-20 bg-white shadow-xl transition-all duration-200 text-center'
+                  ' z-40 absolute bottom-10 -left-10 bg-white shadow-xl transition-all duration-200 text-center'
                 }>
-                <div className='p-2 mt-1 w-52 h-52'>
-                  {wechatQrCodeShow && <QrCode value={CONTACT_WECHAT} size={180} />}
+                <div className='p-2 mt-1 w-28 h-28'>
+                  {wechatQrCodeShow && <QrCode value={CONTACT_WECHAT} />}
                 </div>
               </div>
             </div>
