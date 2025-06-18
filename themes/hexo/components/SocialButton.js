@@ -191,7 +191,7 @@ const SocialButton = () => {
             onMouseLeave={closeWechatPopover}
             aria-label={'微信'}>
             <div id='personal-wechat-button'>
-              <i className='transform scale-105 hover:scale-125 duration-150 fab fa-weixin dark:hover:text-indigo-400 hover:text-indigo-600' />
+              <i className='transform scale-105 hover:scale-125 duration-150 fas fa-message dark:hover:text-indigo-400 hover:text-indigo-600' />
             </div>
             {/* 二维码弹框 */}
             <div className='absolute'>
