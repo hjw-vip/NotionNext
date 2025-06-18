@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 /**
  * 二维码生成
  */
-export default function QrCode({ value }) {
+export default function QrCode({ value, size = 256 }) {
   const qrCodeCDN =
     process.env.NEXT_PUBLIC_QR_CODE_CDN ||
     'https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js'
@@ -19,8 +19,8 @@ export default function QrCode({ value }) {
       if (typeof QRCode !== 'undefined') {
         qrcode = new QRCode(document.getElementById('qrcode'), {
           text: value,
-          width: 256,
-          height: 256,
+          width: size,
+          height: size,
           colorDark: '#000000',
           colorLight: '#ffffff',
           correctLevel: QRCode.CorrectLevel.H
@@ -33,7 +33,7 @@ export default function QrCode({ value }) {
         qrcode.clear() // clear the code.
       }
     }
-  }, [])
+  }, [value, size])
 
   return <div id='qrcode'></div>
 }
