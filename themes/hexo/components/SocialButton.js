@@ -201,8 +201,15 @@ const SocialButton = () => {
                   (wechatQrCodeShow ? 'opacity-100 ' : ' invisible opacity-0') +
                   ' z-40 absolute bottom-10 -left-10 bg-white shadow-xl transition-all duration-200 text-center'
                 }>
-                <div className='p-2 mt-1 w-28 h-28'>
-                  {wechatQrCodeShow && <QrCode value={CONTACT_WECHAT} />}
+                <div className='p-2 mt-1 w-36 h-36 flex items-center justify-center'>
+                  {wechatQrCodeShow && (
+                    /* eslint-disable-next-line @next/next/no-img-element */
+                    <img
+                      src="/wechat.jpg"
+                      alt="微信二维码"
+                      className="max-w-full max-h-full object-contain"
+                    />
+                  )}
                 </div>
               </div>
             </div>
