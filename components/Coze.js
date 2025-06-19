@@ -12,7 +12,7 @@ export default function Coze() {
     'https://lf-cdn.coze.cn/obj/unpkg/flow-platform/chat-app-sdk/0.1.0-beta.6/libs/cn/index.js'
   )
   const title = siteConfig('COZE_TITLE', 'NotionNext助手')
-  const botId = siteConfig('COZE_BOT_ID')
+  const botId = String(siteConfig('COZE_BOT_ID'))
   const token = siteConfig('COZE_PAT_TOKEN')
 
   const loadCoze = async () => {
@@ -22,13 +22,13 @@ export default function Coze() {
       const cozeClient = new CozeWebSDK.WebChatClient({
         config: {
           type: 'bot',
-          bot_id: COZE_BOT_ID,
+          bot_id: botId,
           isIframe: false,
         },
         auth: {
           type: 'token',
-          token: COZE_PAT_TOKEN,
-          onRefreshToken: async () => COZE_PAT_TOKEN
+          token: token,
+          onRefreshToken: async () => token
         },
         userInfo: {
           id: 'user',
