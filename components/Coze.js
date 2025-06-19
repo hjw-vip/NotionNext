@@ -22,13 +22,13 @@ export default function Coze() {
       const cozeClient = new CozeWebSDK.WebChatClient({
         config: {
           type: 'bot',
-          bot_id: botId,
+          bot_id: COZE_BOT_ID,
           isIframe: false,
         },
         auth: {
           type: 'token',
-          token: token,
-          onRefreshToken: async () => token
+          token: COZE_PAT_TOKEN,
+          onRefreshToken: async () => COZE_PAT_TOKEN
         },
         userInfo: {
           id: 'user',
