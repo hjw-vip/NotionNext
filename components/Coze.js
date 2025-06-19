@@ -13,6 +13,7 @@ export default function Coze() {
   )
   const title = siteConfig('COZE_TITLE', 'NotionNext助手')
   const botId = siteConfig('COZE_BOT_ID')
+  const token = siteConfig('COZE_PAT_TOKEN')
 
   const loadCoze = async () => {
     await loadExternalResource(cozeSrc)
@@ -20,10 +21,43 @@ export default function Coze() {
     if (CozeWebSDK) {
       const cozeClient = new CozeWebSDK.WebChatClient({
         config: {
-          bot_id: botId
+          type: 'bot',
+          bot_id: botId,
+          isIframe: false,
         },
-        componentProps: {
-          title: title
+        auth: {
+          type: 'token',
+          token: token,
+          onRefreshToken: async () => token
+        },
+        userInfo: {
+          id: 'user',
+          url: siteConfig('COZE_USER_AVATAR', 'https://lf-coze-web-cdn.coze.cn/obj/eden-cn/lm-lgvj/ljhwZthlaukjlkulzlp/coze/coze-logo.png'),
+          nickname: siteConfig('COZE_USER_NICKNAME', 'User'),
+        },
+        ui: {
+          base: {
+            icon: siteConfig('COZE_ICON', 'https://lf-coze-web-cdn.coze.cn/obj/eden-cn/lm-lgvj/ljhwZthlaukjlkulzlp/coze/chatsdk-logo.png'),
+            layout: 'pc',
+            lang: siteConfig('COZE_LANG', 'zh-CN'),
+            zIndex: 1000
+          },
+          header: {
+            isShow: true,
+            isNeedClose: true,
+          },
+          asstBtn: {
+            isNeed: true
+          },
+          footer: {
+            isShow: true,
+            expressionText: siteConfig('COZE_FOOTER_TEXT', 'Powered by NotionNext'),
+          },
+          chatBot: {
+            title: title,
+            uploadable: true,
+            width: 390,
+          },
         }
       })
       console.log('coze', cozeClient)
@@ -31,7 +65,7 @@ export default function Coze() {
   }
 
   useEffect(() => {
-    if (!botId) {
+    if (!botId || !token) {
       return
     }
     loadCoze()
