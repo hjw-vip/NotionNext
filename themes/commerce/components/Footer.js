@@ -4,9 +4,6 @@ import CopyRightDate from '@/components/CopyRightDate'
 import { siteConfig } from '@/lib/config'
 import SmartLink from '@/components/SmartLink'
 import CONFIG from '../config'
-import { decryptEmail, handleEmailClick } from '@/lib/plugins/mailEncrypt'
-import { useRef } from 'react'
-import CanvasEmail from '@/components/CanvasEmail'
 
 /**
  * 页脚
@@ -20,10 +17,6 @@ const Footer = props => {
   const copyrightDate =
     parseInt(since) < currentYear ? since + '-' + currentYear : currentYear
   const { categoryOptions, customMenu } = props
-
-  const CONTACT_EMAIL = siteConfig('CONTACT_EMAIL')
-
-  const emailIcon = useRef(null)
 
   return (
     <footer
@@ -135,16 +128,14 @@ const Footer = props => {
                   </div>
                   <div className='text-lg'>
                     {' '}
-                    {CONTACT_EMAIL && (
+                    {siteConfig('CONTACT_EMAIL') && (
                       <a
-                        onClick={e =>
-                          handleEmailClick(e, emailIcon, CONTACT_EMAIL)
-                        }
-                        title='email'
-                        className='cursor-pointer'
-                        ref={emailIcon}>
+                        target='_blank'
+                        rel='noreferrer'
+                        title={'email'}
+                        href={`mailto:${siteConfig('CONTACT_EMAIL')}`}>
                         <i className='transform hover:scale-125 duration-150 fas fa-envelope dark:hover:text-red-400 hover:text-red-600' />{' '}
-                        <CanvasEmail email={decryptEmail(CONTACT_EMAIL)} />
+                        {siteConfig('CONTACT_EMAIL')}
                       </a>
                     )}
                   </div>
