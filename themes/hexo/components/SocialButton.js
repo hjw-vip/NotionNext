@@ -1,7 +1,6 @@
 import QrCode from '@/components/QrCode'
 import { siteConfig } from '@/lib/config'
-import { useRef, useState } from 'react'
-import { handleEmailClick } from '@/lib/plugins/mailEncrypt'
+import { useState } from 'react'
 
 /**
  * 社交联系方式按钮组
@@ -24,8 +23,10 @@ const SocialButton = () => {
   const CONTACT_XIAOHONGSHU = siteConfig('CONTACT_XIAOHONGSHU')
   const CONTACT_ZHISHIXINGQIU = siteConfig('CONTACT_ZHISHIXINGQIU')
   const CONTACT_WEHCHAT_PUBLIC = siteConfig('CONTACT_WEHCHAT_PUBLIC')
+  const CONTACT_WECHAT = siteConfig('CONTACT_WECHAT')
 
   const [qrCodeShow, setQrCodeShow] = useState(false)
+  const [wechatQrCodeShow, setWechatQrCodeShow] = useState(false)
 
   const openPopover = () => {
     setQrCodeShow(true)
@@ -33,9 +34,13 @@ const SocialButton = () => {
   const closePopover = () => {
     setQrCodeShow(false)
   }
-
-  const emailIcon = useRef(null)
-
+  
+  const openWechatPopover = () => {
+    setWechatQrCodeShow(true)
+  }
+  const closeWechatPopover = () => {
+    setWechatQrCodeShow(false)
+  }
   return (
     <div className='w-full justify-center flex-wrap flex'>
       <div className='space-x-3 text-xl flex items-center text-gray-600 dark:text-gray-300 '>
@@ -95,10 +100,10 @@ const SocialButton = () => {
         )}
         {CONTACT_EMAIL && (
           <a
-            onClick={e => handleEmailClick(e, emailIcon, CONTACT_EMAIL)}
-            title='email'
-            className='cursor-pointer'
-            ref={emailIcon}>
+            target='_blank'
+            rel='noreferrer'
+            title={'email'}
+            href={`mailto:${CONTACT_EMAIL}`}>
             <i className='transform hover:scale-125 duration-150 fas fa-envelope dark:hover:text-indigo-400 hover:text-indigo-600' />
           </a>
         )}
@@ -175,6 +180,36 @@ const SocialButton = () => {
                 }>
                 <div className='p-2 mt-1 w-28 h-28'>
                   {qrCodeShow && <QrCode value={CONTACT_WEHCHAT_PUBLIC} />}
+                </div>
+              </div>
+            </div>
+          </button>
+        )}
+        {CONTACT_WECHAT && (
+          <button
+            onMouseEnter={openWechatPopover}
+            onMouseLeave={closeWechatPopover}
+            aria-label={'微信'}>
+            <div id='personal-wechat-button'>
+              <i className='transform scale-105 hover:scale-125 duration-150 fas fa-message dark:hover:text-indigo-400 hover:text-indigo-600' />
+            </div>
+            {/* 二维码弹框 */}
+            <div className='absolute'>
+              <div
+                id='wechat-pop'
+                className={
+                  (wechatQrCodeShow ? 'opacity-100 ' : ' invisible opacity-0') +
+                  ' z-40 absolute bottom-10 -left-10 bg-white shadow-xl transition-all duration-200 text-center'
+                }>
+                <div className='p-2 mt-1 w-36 h-36 flex items-center justify-center'>
+                  {wechatQrCodeShow && (
+                    /* eslint-disable-next-line @next/next/no-img-element */
+                    <img
+                      src="/wechat.jpg"
+                      alt="微信二维码"
+                      className="max-w-full max-h-full object-contain"
+                    />
+                  )}
                 </div>
               </div>
             </div>
